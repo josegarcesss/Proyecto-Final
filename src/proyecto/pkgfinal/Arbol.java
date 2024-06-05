@@ -52,9 +52,43 @@ public class Arbol {
     
     
     
+    private NodoArbol buscar(NodoArbol actual, String nombre){
+        
+        if (actual == null){
+        return null;    
+        }
+       
+        if (actual.getAnimal().getRaza().equalsIgnoreCase(nombre)){
+            return actual;
+        }
+        
+        NodoArbol encontrado = buscar(actual.getNodoIzq(),nombre);
+        if(encontrado ==null){
+            encontrado = buscar(actual.getNodoDer(),nombre);
+        }
+        return encontrado;
+    }
     
+    public String determinarGanador(String nombre1, String nombre2){
+        NodoArbol nodo1=buscar(raiz, nombre1);
+        NodoArbol nodo2=buscar(raiz, nombre2);
+        
+        if(nodo1==null || nodo2==null){
+        return "uno o ambos animales no se encontraron";
+    }
+        
+        double puntaje1=(nodo1.getAnimal().getEntrada() + nodo1.getAnimal().getPiruetas())/2;
+        double puntaje2=(nodo2.getAnimal().getEntrada() + nodo2.getAnimal().getPiruetas())/2;
     
+    if(puntaje1>puntaje2){
+        return nodo1.getAnimal().getRaza();
+    }else if(puntaje2>puntaje1){
+        return nodo2.getAnimal().getRaza();
+    }else{
+        return "Se empato con puntaje:"+puntaje1;
+    }
     
+    }
     
     
     
