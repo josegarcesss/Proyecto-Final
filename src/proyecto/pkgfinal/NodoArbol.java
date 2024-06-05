@@ -35,6 +35,9 @@ public class NodoArbol {
         return nodoDer;
     }
 
+    
+    
+    //SE INSERTA DENTRO UNA CADENA RECURSIVA 
     public void insertar(Animal animal){
         double puntajeNodo=(this.animal.getEntrada()+this.animal.getPiruetas())/2;
         double puntajeNuevo=(animal.getEntrada()+animal.getPiruetas())/2;
