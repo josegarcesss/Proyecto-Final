@@ -26,30 +26,47 @@ public class Arbol {
                 
     }
     
-    public int iniciarPreOrden(String animal){
+    public int iniciarProfundidadPreOrden(){
         int longitudCamino=0;
-        preOrden(this.raiz, longitudCamino,animal);
+        preOrden(this.raiz, longitudCamino);
         longitudCamino=profundidad;
         profundidad=-1;
         return longitudCamino;
     }
     
     
-    private void preOrden(NodoArbol nodo,int longitudCamino,String animal){
+    private void preOrden(NodoArbol nodo,int longitudCamino){
         if(nodo==null){
             return;
         }else{
-            if(nodo.getAnimal().getRaza().equalsIgnoreCase(animal)){
-                this.profundidad=longitudCamino;
-            }else{  
+           this.profundidad=longitudCamino;      
            longitudCamino++;
-            preOrden(nodo.getNodoIzq(),longitudCamino,animal);
-            preOrden(nodo.getNodoDer(),longitudCamino,animal);
-        }
+            preOrden(nodo.getNodoIzq(),longitudCamino);
+            preOrden(nodo.getNodoDer(),longitudCamino);
         }
     }
     
     
+    
+    //LISTAR EN INORDEN LOS ANIMALES PARTICIPANTES
+    public void listarInOrden(){
+        inOrden(this.raiz);
+    }
+    private void inOrden(NodoArbol nodo){
+        if(nodo==null){
+            return;
+        }else{
+            inOrden(nodo.getNodoIzq());
+            System.out.println(nodo.getAnimal().getRaza());     
+            inOrden(nodo.getNodoDer());
+        }
+    }
+    
+    
+    public String buscarXRaza(String nombreABuscar){
+        NodoArbol nodoEncontrado=buscar(this.raiz,nombreABuscar);
+        return nodoEncontrado.getAnimal().getRaza();
+    }
     
     
     private NodoArbol buscar(NodoArbol actual, String nombre){
