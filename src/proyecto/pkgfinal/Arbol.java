@@ -82,6 +82,10 @@ public class Arbol {
         }
     }
     
+    public boolean min2Animales(){
+        return(this.raiz!=null && (this.raiz.getNodoDer()!=null || this.raiz.getNodoIzq()!=null));
+    }
+    
     //HASTA ACA FUNCIONA----------------------------------------------------
     
     public Animal obtenerAnimalMaxProfundidad() {
@@ -109,5 +113,8 @@ public class Arbol {
         }
     }
 
+    
+    
+    
 
 }

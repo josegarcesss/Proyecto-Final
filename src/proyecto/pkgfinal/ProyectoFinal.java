@@ -74,14 +74,14 @@ public class ProyectoFinal {
                     arbol.insertar(animal);
                     break;
                 case 2:
-                     if(!maquina.isEmpty()){
+                     if(arbol.min2Animales()){
                         System.out.println("");
                     arbol.listarInOrden();
                     System.out.println("Ingrese Raza del animal Seleccionado: ");
                     do{
                     nombreAnimal1=sc.nextLine();
                     }while(arbol.buscarAnimalPosOrden(nombreAnimal1)==null);                        
-                        if(maquina.size()>1){
+                        if(arbol.min2Animales()){
                             do{
                             Random random = new Random();
                             nombreMaquina=maquina.get(random.nextInt(maquina.size())).getRaza();
@@ -98,7 +98,7 @@ public class ProyectoFinal {
                      break;
                 
                 case 3:     
-              if(maquina.size()>1){
+              if(arbol.min2Animales()){
                         System.out.println("");
                     arbol.listarInOrden();
                     System.out.println("[JUGADOR 1] - Ingrese Raza del animal Seleccionado: ");
