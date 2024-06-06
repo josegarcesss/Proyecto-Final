@@ -98,9 +98,9 @@ public class Arbol {
         double puntaje2=(nodo2.getAnimal().getEntrada() + nodo2.getAnimal().getPiruetas())/2;
     
     if(puntaje1>puntaje2){
-        return nodo1.getAnimal().getRaza();
+        return nodo1.getAnimal().getRaza()+ "gana con un puntaje de: " + puntaje1;
     }else if(puntaje2>puntaje1){
-        return nodo2.getAnimal().getRaza();
+        return nodo2.getAnimal().getRaza() + "gana con un puntaje de: " + puntaje2;
     }else{
         return "Se empato con puntaje:"+puntaje1;
     }

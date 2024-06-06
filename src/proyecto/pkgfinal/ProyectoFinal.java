@@ -17,8 +17,8 @@ public class ProyectoFinal {
         String nombreAnimal;
         Arbol arbol=new Arbol();
         int op=-1,puntaje;
-        
-        while(op!=6){
+        String nombreAnimal2;
+        while(op!=5){
             System.out.println("--------------------------------------------------");
             System.out.println("-----------------------MENU-----------------------");
             System.out.println("<1> INSERTAR ANIMAL");
@@ -66,23 +66,52 @@ public class ProyectoFinal {
                     do{
                     nombreAnimal=sc.nextLine();
                     }while(arbol.buscarXRaza(nombreAnimal).equalsIgnoreCase(nombreAnimal));
-                    Random random=new Random();
-                    do{
+                        maquina.remove(nombreAnimal);
                         
-                        
-//                        int num=random.nextInt(maquina.size()-1);
-//                    Animal animalMaquina=maquina.get(num);
+                        if(!maquina.isEmpty()){
+                            Random random = new Random();
+                            String nombreMaquina=maquina.get(random.nextInt(maquina.size()));
                     
-
-                    }while(nombreAnimal.equalsIgnoreCase(animalMaquina));
-                    
-                    
-                    
-                    
+                            System.out.println("La maquina ha elegido al animal: " + nombreMaquina);
+                            
+                            System.out.println("el ganador es:" + arbol.determinarGanador(nombreAnimal, nombreMaquina));
+                        }else{
+                            System.out.println("No quedan animales para la maquina");
+                        }
                     }else{
                          System.out.println("El Arbol está Vacio, Ingrese Animales Primero!");
                      }
-                    
+                     break;
+                
+                case 3:     
+              if(!maquina.isEmpty()){
+                        System.out.println("");
+                    arbol.listarInOrden();
+                    System.out.println("Ingrese Raza del animal Seleccionado: ");
+                    do{
+                    nombreAnimal=sc.nextLine();
+                    }while(arbol.buscarXRaza(nombreAnimal).equalsIgnoreCase(nombreAnimal));
+                        System.out.println("Ingrese Raza del animal Seleccionado: ");
+                    do{
+                    nombreAnimal2=sc.nextLine();
+                    }while(arbol.buscarXRaza(nombreAnimal2).equalsIgnoreCase(nombreAnimal2) && nombreAnimal2.equalsIgnoreCase(nombreAnimal));
+            System.out.println("el ganador es:" + arbol.determinarGanador(nombreAnimal, nombreAnimal2));
+                       
+                    }else{
+                         System.out.println("El Arbol está Vacio, Ingrese Animales Primero!");
+                     }
+                     break;
+            
+                case 4:
+                    if(arbol.iniciarProfundidadPreOrden()==-1){
+                        System.out.println("El arbol esta vacio");
+                    }else{
+                        System.out.println("el animal con mayor profundidad esta en: "+arbol.iniciarProfundidadPreOrden());
+                    }
+            break;
+            
+                case 5:
+                    System.out.println("Gracias por jugar!!!!");
                     
             }
             
@@ -90,9 +119,6 @@ public class ProyectoFinal {
         }
         
         
-        
-    
-
-    }
+       }
 
 }
