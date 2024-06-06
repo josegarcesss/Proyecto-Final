@@ -11,6 +11,7 @@ package proyecto.pkgfinal;
 public class Arbol {
     private NodoArbol raiz;
     private Animal animalE;
+    private Animal animalProfundo;
     private int pMaxima;
 
     public Arbol() {
@@ -85,8 +86,7 @@ public class Arbol {
     
     public Animal obtenerAnimalMaxProfundidad() {
         calcularProfundidad(raiz, 0);
-        Animal encontrado=animalE;
-        this.animalE=null;
+        Animal encontrado=animalProfundo;
         return encontrado;
     }
 
@@ -99,10 +99,10 @@ public class Arbol {
 
             if (profundidadIzquierda > profundidadDerecha && profundidadIzquierda > pMaxima) {
                 pMaxima = profundidadIzquierda;
-                animalE = nodo.getNodoIzq().getAnimal();
+                animalProfundo = nodo.getAnimal();
             } else if (profundidadDerecha > pMaxima) {
                 pMaxima = profundidadDerecha;
-                animalE = nodo.getNodoDer().getAnimal();
+                animalProfundo = nodo.getAnimal();
             }
 
             return Math.max(profundidadIzquierda, profundidadDerecha);

@@ -17,6 +17,21 @@ public class ProyectoFinal {
         String nombreAnimal1,nombreMaquina,nombreAnimal2;
         Arbol arbol=new Arbol();
         int op=-1,puntaje;
+        
+        
+        
+        //SECTOR DE PRUEBAS
+        for (int i = 1; i <= 10; i++) {
+            Animal animal=new Animal("perro"+i);
+            animal.setEntrada(i);
+            animal.setPiruetas(i);
+          arbol.insertar(animal);  
+        }
+        
+        
+        
+        
+        
         while(op!=5){
             System.out.println("--------------------------------------------------");
             System.out.println("-----------------------MENU-----------------------");
@@ -101,8 +116,7 @@ public class ProyectoFinal {
                      break;
             
                 case 4:
-                    //SOLO QUEDA SOLUCIONAR ESTE PUNTO NOMAS
-//                        System.out.println("el animal con mayor profundidad es: \n"+arbol.obtenerNodoMaxProfundidad());
+                        System.out.println("el animal con mayor profundidad es: \n"+arbol.obtenerAnimalMaxProfundidad());
                     
             break;
             
