@@ -11,11 +11,10 @@ import java.util.Scanner;
 
 public class ProyectoFinal {
         //@param args the command line arguments
-    @SuppressWarnings("empty-statement")
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
-        ArrayList<String> maquina=new ArrayList<>();
-        String nombreAnimal,nombreMaquina,nombreAnimal2;
+        ArrayList<Animal> maquina=new ArrayList<>();
+        String nombreAnimal1,nombreMaquina,nombreAnimal2;
         Arbol arbol=new Arbol();
         int op=-1,puntaje;
         while(op!=5){
@@ -37,9 +36,9 @@ public class ProyectoFinal {
                     arbol.listarInOrden();
                     System.out.println("Ingrese Raza del animal que no esté en la Lista: ");
                     do{
-                    nombreAnimal=sc.nextLine();
-                    }while(arbol.buscarXRaza(nombreAnimal)!="-1");
-                    Animal animal=new Animal(nombreAnimal);
+                    nombreAnimal1=sc.nextLine();
+                    }while(arbol.buscarAnimalPosOrden(nombreAnimal1)!=null);
+                    Animal animal=new Animal(nombreAnimal1);
                     System.out.println("Puntaje de Entrada:");
                     do{
                     puntaje=sc.nextInt();
@@ -56,7 +55,7 @@ public class ProyectoFinal {
                     }
                     }while(puntaje<1 || puntaje>10);
                     animal.setPiruetas(puntaje);
-                    maquina.add(nombreAnimal);
+                    maquina.add(animal);
                     arbol.insertar(animal);
                     break;
                 case 2:
@@ -65,18 +64,16 @@ public class ProyectoFinal {
                     arbol.listarInOrden();
                     System.out.println("Ingrese Raza del animal Seleccionado: ");
                     do{
-                    nombreAnimal=sc.nextLine();
-                    }while(arbol.buscarXRaza(nombreAnimal).equalsIgnoreCase(nombreAnimal));
-                        
-                    maquina.remove(nombreAnimal);                        
-                        if(!maquina.isEmpty()){
+                    nombreAnimal1=sc.nextLine();
+                    }while(arbol.buscarAnimalPosOrden(nombreAnimal1)==null);                        
+                        if(maquina.size()>1){
                             do{
                             Random random = new Random();
-                            nombreMaquina=maquina.get(random.nextInt(maquina.size()));
-                            }while(nombreMaquina.equalsIgnoreCase(nombreAnimal));
+                            nombreMaquina=maquina.get(random.nextInt(maquina.size())).getRaza();
+                            }while(nombreMaquina.equalsIgnoreCase(nombreAnimal1));
                             System.out.println("La maquina ha elegido al animal: " + nombreMaquina);
                             
-                            System.out.println("el ganador es:" + arbol.determinarGanador(nombreAnimal, nombreMaquina));
+                            System.out.println(arbol.determinarGanador(nombreAnimal1, nombreMaquina));
                         }else{
                             System.out.println("No quedan animales para la maquina");
                         }
@@ -86,30 +83,27 @@ public class ProyectoFinal {
                      break;
                 
                 case 3:     
-              if(!maquina.isEmpty()){
+              if(maquina.size()>1){
                         System.out.println("");
                     arbol.listarInOrden();
-                    System.out.println("Ingrese Raza del animal Seleccionado: ");
+                    System.out.println("[JUGADOR 1] - Ingrese Raza del animal Seleccionado: ");
                     do{
-                    nombreAnimal=sc.nextLine();
-                    }while(arbol.buscarXRaza(nombreAnimal).equalsIgnoreCase(nombreAnimal));
-                        System.out.println("Ingrese Raza del animal Seleccionado: ");
+                    nombreAnimal1=sc.nextLine();
+                    }while(arbol.buscarAnimalPosOrden(nombreAnimal1)==null);
+                        System.out.println("[JUGADOR 2] - Ingrese Raza del animal Seleccionado: ");
                     do{
                     nombreAnimal2=sc.nextLine();
-                    }while(arbol.buscarXRaza(nombreAnimal2).equalsIgnoreCase(nombreAnimal2) && nombreAnimal2.equalsIgnoreCase(nombreAnimal));
-            System.out.println("el ganador es:" + arbol.determinarGanador(nombreAnimal, nombreAnimal2));
-                       
+                    }while(arbol.buscarAnimalPosOrden(nombreAnimal2)==null || nombreAnimal2.equalsIgnoreCase(nombreAnimal1));
+                    System.out.println("el ganador es:" + arbol.determinarGanador(nombreAnimal1, nombreAnimal2)); 
                     }else{
                          System.out.println("El Arbol está Vacio, Ingrese Animales Primero!");
                      }
                      break;
             
                 case 4:
-                    if(arbol.iniciarProfundidadPreOrden()==-1){
-                        System.out.println("El arbol esta vacio");
-                    }else{
-                        System.out.println("el animal con mayor profundidad es: \n"+arbol.animalProfundidadPostOrden());
-                    }
+                    //SOLO QUEDA SOLUCIONAR ESTE PUNTO NOMAS
+//                        System.out.println("el animal con mayor profundidad es: \n"+arbol.obtenerNodoMaxProfundidad());
+                    
             break;
             
                 case 5:

@@ -10,67 +10,22 @@ package proyecto.pkgfinal;
  */
 public class Arbol {
     private NodoArbol raiz;
-    private int profundidad;
-    private Animal animal;
+    private Animal animalE;
+    private int pMaxima;
 
     public Arbol() {
         this.raiz = null;
-        this.profundidad=-1;
     }
     
-    public void insertar(Animal animal){
+     public void insertar(Animal animal){
         if(this.raiz==null){
             this.raiz=new NodoArbol(animal);
         }else{
            this.raiz.insertar(animal);
-        }
-                
+        }     
     }
     
-    public Animal animalProfundidadPostOrden(){
-        Animal animal=new Animal("-1");
-        preOrden(this.raiz, animal);
-        animal=this.animal;
-        this.animal=null;
-        return animal;
-    }
-    
-    private void preOrden(NodoArbol nodo, Animal animal){
-        if(nodo==null){
-            return;
-        }else{
-             animal=nodo.getAnimal();
-            this.animal=animal;
-            preOrden(nodo.getNodoIzq(),animal);
-            preOrden(nodo.getNodoDer(),animal);
-           
-        }
-    }
-    
-    
-    
-    public int iniciarProfundidadPreOrden(){
-        int longitudCamino=0;
-        preOrden(this.raiz, longitudCamino);
-        longitudCamino=profundidad;
-        profundidad=-1;
-        return longitudCamino;
-    }
-    
-    private void preOrden(NodoArbol nodo,int longitudCamino){
-        if(nodo==null){
-            return;
-        }else{
-           this.profundidad=longitudCamino;      
-           longitudCamino++;
-            preOrden(nodo.getNodoIzq(),longitudCamino);
-            preOrden(nodo.getNodoDer(),longitudCamino);
-        }
-    }
-    
-    
-    
-    //LISTAR EN INORDEN LOS ANIMALES PARTICIPANTES
+     //LISTAR EN INORDEN LOS ANIMALES PARTICIPANTES
     public void listarInOrden(){
         inOrden(this.raiz);
     }
@@ -84,61 +39,75 @@ public class Arbol {
         }
     }
     
-    
-    public String buscarXRaza(String nombreABuscar){
-        NodoArbol nodoEncontrado=buscar(this.raiz,nombreABuscar);
-        if(nodoEncontrado!=null){
-        return nodoEncontrado.getAnimal().getRaza();
+    private void posOrden(NodoArbol nodo,String nombreAnimal){
+        if(nodo==null){
+            return;
         }else{
-            return("-1");
+        posOrden(nodo.getNodoIzq(),nombreAnimal);
+        posOrden(nodo.getNodoDer(),nombreAnimal);
+        if(nodo.getAnimal().getRaza().equalsIgnoreCase(nombreAnimal)){
+            animalE=nodo.getAnimal();
+        }
         }
     }
-    
-    
-    private NodoArbol buscar(NodoArbol actual, String nombre){
-        
-        if (actual == null){
-        return null;    
-        }
-       
-        if (actual.getAnimal().getRaza().equalsIgnoreCase(nombre)){
-            return actual;
-        }
-        
-        NodoArbol encontrado = buscar(actual.getNodoIzq(),nombre);
-        if(encontrado ==null){
-            encontrado = buscar(actual.getNodoDer(),nombre);
-        }
+
+    public Animal buscarAnimalPosOrden(String nombreAnimalbuscar) {
+        posOrden(this.raiz, nombreAnimalbuscar);
+        Animal encontrado=animalE;
+        this.animalE=null;
         return encontrado;
     }
     
+    
+    
     public String determinarGanador(String nombre1, String nombre2){
-        NodoArbol nodo1=buscar(raiz, nombre1);
-        NodoArbol nodo2=buscar(raiz, nombre2);
+        Animal animal1= buscarAnimalPosOrden(nombre1);
+        Animal animal2= buscarAnimalPosOrden(nombre2);
         
-        if(nodo1==null || nodo2==null){
-        return "uno o ambos animales no se encontraron";
+        if(animal1==null || animal2==null){
+             return "uno o ambos animales no se encontraron";
+        }else{
+            double puntaje1=(animal1.getEntrada()+animal1.getPiruetas())/2;
+            double puntaje2=(animal2.getEntrada()+animal2.getPiruetas())/2;
+            System.out.println(animal1);
+            System.out.println(animal2);
+            if(puntaje1>puntaje2){
+                return (animal1.getRaza()+" gana por: "+(puntaje1-puntaje2));
+            }else if(puntaje1<puntaje2){
+                return (animal2.getRaza()+" gana por: "+(puntaje2-puntaje1));
+            }else{
+                return("Empataron con: "+puntaje2);
+            }  
+        }
     }
-        
-        double puntaje1=(nodo1.getAnimal().getEntrada() + nodo1.getAnimal().getPiruetas())/2;
-        double puntaje2=(nodo2.getAnimal().getEntrada() + nodo2.getAnimal().getPiruetas())/2;
     
-    if(puntaje1>puntaje2){
-        return nodo1.getAnimal().getRaza()+ "gana con un puntaje de: " + puntaje1;
-    }else if(puntaje2>puntaje1){
-        return nodo2.getAnimal().getRaza() + "gana con un puntaje de: " + puntaje2;
-    }else{
-        return "Se empato con puntaje:"+puntaje1;
+    //HASTA ACA FUNCIONA----------------------------------------------------
+    
+    public Animal obtenerAnimalMaxProfundidad() {
+        calcularProfundidad(raiz, 0);
+        Animal encontrado=animalE;
+        this.animalE=null;
+        return encontrado;
     }
-    
+
+    private int calcularProfundidad(NodoArbol nodo, int profundidad) {
+        if (nodo == null) {
+            return profundidad;
+        } else {
+            int profundidadIzquierda = calcularProfundidad(nodo.getNodoIzq(), profundidad + 1);
+            int profundidadDerecha = calcularProfundidad(nodo.getNodoDer(), profundidad + 1);
+
+            if (profundidadIzquierda > profundidadDerecha && profundidadIzquierda > pMaxima) {
+                pMaxima = profundidadIzquierda;
+                animalE = nodo.getNodoIzq().getAnimal();
+            } else if (profundidadDerecha > pMaxima) {
+                pMaxima = profundidadDerecha;
+                animalE = nodo.getNodoDer().getAnimal();
+            }
+
+            return Math.max(profundidadIzquierda, profundidadDerecha);
+        }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
 }

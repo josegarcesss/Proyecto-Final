@@ -45,6 +45,8 @@ public class Animal {
     public String toString() {
         return "Animal{" + "Raza=" + Raza + ", Piruetas=" + Piruetas + ", Entrada=" + Entrada + '}';
     }
+
+    
     
     
     
