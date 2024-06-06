@@ -11,13 +11,13 @@ import java.util.Scanner;
 
 public class ProyectoFinal {
         //@param args the command line arguments
+    @SuppressWarnings("empty-statement")
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         ArrayList<String> maquina=new ArrayList<>();
-        String nombreAnimal;
+        String nombreAnimal,nombreMaquina,nombreAnimal2;
         Arbol arbol=new Arbol();
         int op=-1,puntaje;
-        String nombreAnimal2;
         while(op!=5){
             System.out.println("--------------------------------------------------");
             System.out.println("-----------------------MENU-----------------------");
@@ -29,15 +29,16 @@ public class ProyectoFinal {
             System.out.println("--------------------------------------------------");
             System.out.print("SELECCIONE UNA OPCION: ");
             op=sc.nextInt();
-            
+            sc.nextLine();
             
             switch(op){
+                
                 case 1:
                     arbol.listarInOrden();
                     System.out.println("Ingrese Raza del animal que no esté en la Lista: ");
                     do{
                     nombreAnimal=sc.nextLine();
-                    }while(!arbol.buscarXRaza(nombreAnimal).equalsIgnoreCase(nombreAnimal));
+                    }while(arbol.buscarXRaza(nombreAnimal)!="-1");
                     Animal animal=new Animal(nombreAnimal);
                     System.out.println("Puntaje de Entrada:");
                     do{
@@ -66,12 +67,13 @@ public class ProyectoFinal {
                     do{
                     nombreAnimal=sc.nextLine();
                     }while(arbol.buscarXRaza(nombreAnimal).equalsIgnoreCase(nombreAnimal));
-                        maquina.remove(nombreAnimal);
                         
+                    maquina.remove(nombreAnimal);                        
                         if(!maquina.isEmpty()){
+                            do{
                             Random random = new Random();
-                            String nombreMaquina=maquina.get(random.nextInt(maquina.size()));
-                    
+                            nombreMaquina=maquina.get(random.nextInt(maquina.size()));
+                            }while(nombreMaquina.equalsIgnoreCase(nombreAnimal));
                             System.out.println("La maquina ha elegido al animal: " + nombreMaquina);
                             
                             System.out.println("el ganador es:" + arbol.determinarGanador(nombreAnimal, nombreMaquina));
@@ -106,7 +108,7 @@ public class ProyectoFinal {
                     if(arbol.iniciarProfundidadPreOrden()==-1){
                         System.out.println("El arbol esta vacio");
                     }else{
-                        System.out.println("el animal con mayor profundidad esta en: "+arbol.iniciarProfundidadPreOrden());
+                        System.out.println("el animal con mayor profundidad es: \n"+arbol.animalProfundidadPostOrden());
                     }
             break;
             

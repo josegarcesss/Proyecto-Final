@@ -40,6 +40,13 @@ public class Animal {
     public void setEntrada(int Entrada) {
         this.Entrada = Entrada;
     }
+
+    @Override
+    public String toString() {
+        return "Animal{" + "Raza=" + Raza + ", Piruetas=" + Piruetas + ", Entrada=" + Entrada + '}';
+    }
+    
+    
     
     
 

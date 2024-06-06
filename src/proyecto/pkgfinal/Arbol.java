@@ -11,6 +11,7 @@ package proyecto.pkgfinal;
 public class Arbol {
     private NodoArbol raiz;
     private int profundidad;
+    private Animal animal;
 
     public Arbol() {
         this.raiz = null;
@@ -26,6 +27,28 @@ public class Arbol {
                 
     }
     
+    public Animal animalProfundidadPostOrden(){
+        Animal animal=new Animal("-1");
+        preOrden(this.raiz, animal);
+        animal=this.animal;
+        this.animal=null;
+        return animal;
+    }
+    
+    private void preOrden(NodoArbol nodo, Animal animal){
+        if(nodo==null){
+            return;
+        }else{
+             animal=nodo.getAnimal();
+            this.animal=animal;
+            preOrden(nodo.getNodoIzq(),animal);
+            preOrden(nodo.getNodoDer(),animal);
+           
+        }
+    }
+    
+    
+    
     public int iniciarProfundidadPreOrden(){
         int longitudCamino=0;
         preOrden(this.raiz, longitudCamino);
@@ -33,7 +56,6 @@ public class Arbol {
         profundidad=-1;
         return longitudCamino;
     }
-    
     
     private void preOrden(NodoArbol nodo,int longitudCamino){
         if(nodo==null){
@@ -65,7 +87,11 @@ public class Arbol {
     
     public String buscarXRaza(String nombreABuscar){
         NodoArbol nodoEncontrado=buscar(this.raiz,nombreABuscar);
+        if(nodoEncontrado!=null){
         return nodoEncontrado.getAnimal().getRaza();
+        }else{
+            return("-1");
+        }
     }
     
     
