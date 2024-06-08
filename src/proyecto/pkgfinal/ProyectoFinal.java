@@ -31,7 +31,7 @@ public class ProyectoFinal {
             System.out.println("--------------------------------------------------");
             System.out.println("-----------------------MENU-----------------------");
             System.out.println("<1> INSERTAR ANIMAL");
-            System.out.println("<2> JUGAR CONTA MAQUINA");
+            System.out.println("<2> JUGAR CONTRA MAQUINA");
             System.out.println("<3> JUGAR 2 JUGADORES");
             System.out.println("<4> ENCONTRAR EL ANIMAL CON MAYOR PROFUNDIDAD");
             System.out.println("<5> SALIR");
