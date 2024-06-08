@@ -86,7 +86,6 @@ public class Arbol {
         return(this.raiz!=null && (this.raiz.getNodoDer()!=null || this.raiz.getNodoIzq()!=null));
     }
     
-    //HASTA ACA FUNCIONA----------------------------------------------------
     
     public Animal obtenerAnimalMaxProfundidad() {
         calcularProfundidad(raiz, 0);
